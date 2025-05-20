@@ -2,59 +2,34 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Résultats Quiz</title>
+  <title>Résultats du Quiz</title>
   <style>
-    body { font-family: sans-serif; max-width: 700px; margin: auto; }
-    input, button { margin: 5px 0; padding: 5px; }
-    table { border-collapse: collapse; margin-top: 20px; width: 100%; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    body { font-family: Arial; padding: 20px; }
+    h2 { color: #444; }
+    .entry { border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 10px; }
   </style>
 </head>
 <body>
-  <h1>Ajouter un résultat</h1>
-  <label>Prénom : <input id="prenom" type="text"></label><br>
-  <label>Nom : <input id="nom" type="text"></label><br>
-  <label>Âge : <input id="age" type="number"></label><br>
-  <label>Score : <input id="score" type="number"></label><br>
-  <button onclick="ajouterResultat()">Ajouter</button>
-
-  <h2>Résultats enregistrés</h2>
-  <table id="tableau">
-    <thead>
-      <tr><th>Prénom</th><th>Nom</th><th>Âge</th><th>Score</th></tr>
-    </thead>
-    <tbody id="corpsTableau">
-    </tbody>
-  </table>
+  <h1>Résultats enregistrés</h1>
+  <div id="resultats"></div>
 
   <script>
-    const tableau = document.getElementById("corpsTableau");
+    const resultats = JSON.parse(localStorage.getItem("resultatsQuiz") || "[]");
 
-    function ajouterResultat() {
-      const prenom = document.getElementById("prenom").value;
-      const nom = document.getElementById("nom").value;
-      const age = document.getElementById("age").value;
-      const score = document.getElementById("score").value;
-
-      if (!prenom || !nom || !age || !score) {
-        alert("Merci de remplir tous les champs.");
-        return;
-      }
-
-      const ligne = document.createElement("tr");
-      ligne.innerHTML = `
-        <td>${prenom}</td>
-        <td>${nom}</td>
-        <td>${age}</td>
-        <td>${score}</td>
-      `;
-      tableau.appendChild(ligne);
-
-      // Réinitialiser les champs
-      document.getElementById("prenom").value = "";
-      document.getElementById("nom").value = "";
-      document.getElementById("age").value = "";
-      document.getElementById("score").value = "";
+    const container = document.getElementById("resultats");
+    if (resultats.length === 0) {
+      container.textContent = "Aucun résultat enregistré.";
+    } else {
+      resultats.forEach(entry => {
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `
+          <strong>${entry.prenom} ${entry.nom}</strong> (âge : ${entry.age})<br>
+          Score : ${entry.score} / ${entry.total}<br>
+          Date : ${entry.date}
+        `;
+        container.appendChild(div);
+      });
     }
   </script>
 </body>
