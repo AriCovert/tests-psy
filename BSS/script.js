@@ -45,35 +45,47 @@ function nextQuestion() {
   if (currentQuestion < questions.length) {
     showQuestion();
   } else {
+    // Étape finale : demande d'infos utilisateur
     document.getElementById("question-container").innerHTML = `
       <h2>Quiz terminé !</h2>
       <p>Votre score : ${score} / ${questions.length}</p>
-      <form id="save-form">
-        <label>Prénom : <input type="text" name="prenom" required></label><br>
-        <label>Nom : <input type="text" name="nom" required></label><br>
-        <label>Âge : <input type="number" name="age" min="1" required></label><br>
-        <button type="submit">Afficher mes données</button>
-      </form>
-      <p id="confirmation" style="color: green;"></p>
-      <p><em>Copiez manuellement les données ci-dessous si vous souhaitez les enregistrer.</em></p>
-      <div id="manual-data" style="white-space: pre-wrap; margin-top: 10px;"></div>
+      <p>Merci de renseigner vos informations :</p>
+      <label>Prénom : <input type="text" id="prenom" required></label><br>
+      <label>Nom : <input type="text" id="nom" required></label><br>
+      <label>Âge : <input type="number" id="age" required min="1"></label><br><br>
+      <button onclick="enregistrerEtRediriger()">Confirmer</button>
     `;
-
-    document.getElementById("save-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const nom = formData.get("nom");
-      const prenom = formData.get("prenom");
-      const age = formData.get("age");
-
-      const resultText = `Nom: ${nom}\nPrénom: ${prenom}\nÂge: ${age}\nScore: ${score} / ${questions.length}`;
-      document.getElementById("manual-data").textContent = resultText;
-      document.getElementById("confirmation").textContent = "Informations affichées ci-dessous.";
-      this.remove();
-    });
-
     document.getElementById("next-btn").style.display = "none";
   }
+}
+
+function enregistrerEtRediriger() {
+  const prenom = document.getElementById("prenom").value.trim();
+  const nom = document.getElementById("nom").value.trim();
+  const age = document.getElementById("age").value.trim();
+
+  if (!prenom || !nom || !age) {
+    alert("Veuillez remplir tous les champs.");
+    return;
+  }
+
+  // On enregistre dans le localStorage
+  const entry = {
+    prenom: prenom,
+    nom: nom,
+    age: age,
+    score: score,
+    total: questions.length,
+    date: new Date().toLocaleString()
+  };
+
+  // On récupère l'historique existant
+  const data = JSON.parse(localStorage.getItem("resultatsQuiz") || "[]");
+  data.push(entry);
+  localStorage.setItem("resultatsQuiz", JSON.stringify(data));
+
+  // Redirection vers la page de résultats
+  window.location.href = "resultats.html";
 }
 
 window.onload = showQuestion;
