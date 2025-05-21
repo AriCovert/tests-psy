@@ -128,7 +128,7 @@ function nextQuestion() {
   } else {
     // Étape finale : demande d'infos utilisateur
     document.getElementById("question-container").innerHTML = `
-      <h2>Vos résultas ont bien été pris en compte et vont été redirigés vers la base de données.</h2>
+      <h2>Vos résultats ont bien été pris en compte et vont été redirigés vers la base de données.</h2>
       <p>Merci de renseigner vos informations pour le bon fonctionnement de l'enregistrement :</p>
       <form id="save-form">
         <label>Nom : <input type="text" name="nom" required></label><br>
