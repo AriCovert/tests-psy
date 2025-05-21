@@ -140,34 +140,32 @@ function nextQuestion() {
       <p id="confirmation" style="color: green;"></p>
     `;
 
-  document.getElementById("save-form").addEventListener("submit", function(e) {
-  e.preventDefault();
+    document.getElementById("save-form").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-  const nom = this.elements["nom"].value;
-  const prenom = this.elements["prenom"].value;
-  const age = this.elements["age"].value;
-  const scoreValue = this.elements["score"].value;
+      const nom = this.elements["nom"].value;
+      const prenom = this.elements["prenom"].value;
+      const age = this.elements["age"].value;
+      const scoreValue = this.elements["score"].value;
 
-  const formData = new FormData();
-  formData.append("entry.1294777817", nom);       // Nom
-  formData.append("entry.1766512048", prenom);    // Prénom
-  formData.append("entry.596638300", age);        // Âge
-  formData.append("entry.206687182", scoreValue); // Score
+      const formData = new FormData();
+      formData.append("entry.1294777817", nom);       // Nom
+      formData.append("entry.1766512048", prenom);    // Prénom
+      formData.append("entry.596638300", age);        // Âge
+      formData.append("entry.206687182", scoreValue); // Score
 
-  fetch("https://docs.google.com/forms/d/e/1FAIpQLSdxK2Ud_45jHNd9l5mcZGXIzDb9xVwkF0Tq-pr-2IPw__-DzA/formResponse", {
-    method: "POST",
-    mode: "no-cors",
-    body: formData
-  });
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSdxK2Ud_45jHNd9l5mcZGXIzDb9xVwkF0Tq-pr-2IPw__-DzA/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      });
 
-  document.getElementById("confirmation").textContent = "Merci ! Vos réponses ont été envoyées.";
-  this.remove();
-    
-});
-
+      document.getElementById("confirmation").textContent = "Merci ! Vos réponses ont été envoyées.";
+      this.remove();
     });
   }
 }
+
 
 function enregistrerEtRediriger() {
   const prenom = document.getElementById("prenom").value.trim();
