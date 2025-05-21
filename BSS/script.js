@@ -102,15 +102,27 @@ function showQuestion() {
   question.answers.forEach(answer => {
     const button = document.createElement("button");
     button.textContent = answer.text;
+
     button.onclick = () => {
+      // Désactive tous les boutons pour éviter les clics multiples
+      const allButtons = answersDiv.querySelectorAll("button");
+      allButtons.forEach(btn => btn.disabled = true);
+
+      // Ajoute le score de cette réponse
       score += answer.score;
-      document.getElementById("next-btn").style.display = "block";
+
+      // Petite pause pour laisser voir la réponse sélectionnée (optionnel)
+      setTimeout(() => {
+        nextQuestion();
+      }, 300); // 300ms de pause, modifiable si besoin
     };
+
     answersDiv.appendChild(button);
   });
 
-  document.getElementById("next-btn").style.display = "none";
+  document.getElementById("next-btn").style.display = "none"; // Plus nécessaire
 }
+
 
 function nextQuestion() {
   currentQuestion++;
