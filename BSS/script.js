@@ -126,9 +126,10 @@ function nextQuestion() {
   if (currentQuestion < questions.length) {
     showQuestion();
   } else {
+    // Étape finale : demande d'infos utilisateur
     document.getElementById("question-container").innerHTML = `
-      <h2>Quiz terminé !</h2>
-      <p>Votre score : ${score} / ${questions.length}</p>
+      <h2>Vos résultas ont bien été pris en compte et vont été redirigés vers la base de données</h2>
+      <p>Merci de renseigner vos informations pour le bon fonctionnement de l'enregistrement :</p>
       <form id="save-form">
         <label>Prénom : <input type="text" name="prenom" required></label><br>
         <label>Nom : <input type="text" name="nom" required></label><br>
@@ -160,24 +161,6 @@ function nextQuestion() {
 
 window.onload = showQuestion;
 
-
-function nextQuestion() {
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
-    showQuestion();
-  } else {
-    // Étape finale : demande d'infos utilisateur
-    document.getElementById("question-container").innerHTML = `
-      <h2>Quiz terminé !</h2>
-      <p>Votre score : ${score} / ${questions.length}</p>
-      <p>Merci de renseigner vos informations :</p>
-      <label>Prénom : <input type="text" id="prenom" required></label><br>
-      <label>Nom : <input type="text" id="nom" required></label><br>
-      <label>Âge : <input type="number" id="age" required min="1"></label><br><br>
-      <button onclick="enregistrerEtRediriger()">Confirmer</button>
-    `;
-  }
-}
 
 function enregistrerEtRediriger() {
   const prenom = document.getElementById("prenom").value.trim();
