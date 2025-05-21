@@ -196,7 +196,6 @@ function enregistrerEtRediriger() {
 }
 
 // ✅ Corrigé : pas de double onload
-window.onload = function () {
-  showQuestion();
+window.onload = showQuestion();
 };
 
