@@ -120,7 +120,6 @@ function showQuestion() {
     answersDiv.appendChild(button);
   });
 
-  document.getElementById("next-btn").style.display = "none"; // Plus nécessaire
 }
 
 
@@ -139,7 +138,6 @@ function nextQuestion() {
       <label>Âge : <input type="number" id="age" required min="1"></label><br><br>
       <button onclick="enregistrerEtRediriger()">Confirmer</button>
     `;
-    document.getElementById("next-btn").style.display = "none";
   }
 }
 
