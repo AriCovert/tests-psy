@@ -128,7 +128,7 @@ function nextQuestion() {
   } else {
     // Étape finale : demande d'infos utilisateur
     document.getElementById("question-container").innerHTML = `
-      <h2>Vos résultas ont bien été pris en compte et vont été redirigés vers la base de données</h2>
+      <h2>Vos résultas ont bien été pris en compte et vont été redirigés vers la base de données.</h2>
       <p>Merci de renseigner vos informations pour le bon fonctionnement de l'enregistrement :</p>
       <form id="save-form">
         <label>Nom : <input type="text" name="nom" required></label><br>
@@ -140,21 +140,31 @@ function nextQuestion() {
       <p id="confirmation" style="color: green;"></p>
     `;
 
-    document.getElementById("save-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
+  document.getElementById("save-form").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-      // Remplit automatiquement le formulaire Google Forms
-      const params = new URLSearchParams();
-      for (const [key, value] of formData.entries()) {
-        params.append(key, value);
-      }
+  const nom = this.elements["nom"].value;
+  const prenom = this.elements["prenom"].value;
+  const age = this.elements["age"].value;
+  const scoreValue = this.elements["score"].value;
 
-      const googleFormURL = "https://docs.google.com/forms/d/e/TON_FORM_ID/viewform"; // À personnaliser
-      window.open(`${googleFormURL}?${params.toString()}`, "_blank");
+  const formData = new FormData();
+  formData.append("entry.1294777817", nom);       // Nom
+  formData.append("entry.1766512048", prenom);    // Prénom
+  formData.append("entry.596638300", age);        // Âge
+  formData.append("entry.206687182", scoreValue); // Score
 
-      document.getElementById("confirmation").textContent = "Merci ! Vous pouvez maintenant fermer la page.";
-      this.remove();
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSdxK2Ud_45jHNd9l5mcZGXIzDb9xVwkF0Tq-pr-2IPw__-DzA/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  });
+
+  document.getElementById("confirmation").textContent = "Merci ! Vos réponses ont été envoyées.";
+  this.remove();
+    
+});
+
     });
   }
 }
