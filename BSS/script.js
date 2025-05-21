@@ -169,9 +169,6 @@ function nextQuestion() {
   }
 }
 
-window.onload = showQuestion;
-
-
 function enregistrerEtRediriger() {
   const prenom = document.getElementById("prenom").value.trim();
   const nom = document.getElementById("nom").value.trim();
