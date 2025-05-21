@@ -131,8 +131,8 @@ function nextQuestion() {
       <h2>Vos résultas ont bien été pris en compte et vont été redirigés vers la base de données</h2>
       <p>Merci de renseigner vos informations pour le bon fonctionnement de l'enregistrement :</p>
       <form id="save-form">
-        <label>Prénom : <input type="text" name="prenom" required></label><br>
         <label>Nom : <input type="text" name="nom" required></label><br>
+        <label>Prénom : <input type="text" name="prenom" required></label><br>
         <label>Âge : <input type="number" name="age" min="1" required></label><br>
         <input type="hidden" name="score" value="${score}">
         <button type="submit">Confirmer mes données</button>
