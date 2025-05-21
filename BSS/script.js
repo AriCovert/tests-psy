@@ -182,7 +182,6 @@ function enregistrerEtRediriger() {
     return;
   }
 
-  // On enregistre dans le localStorage
   const entry = {
     prenom: prenom,
     nom: nom,
@@ -192,13 +191,15 @@ function enregistrerEtRediriger() {
     date: new Date().toLocaleString()
   };
 
-  // On récupère l'historique existant
   const data = JSON.parse(localStorage.getItem("resultatsQuiz") || "[]");
   data.push(entry);
   localStorage.setItem("resultatsQuiz", JSON.stringify(data));
 
-  // Redirection vers la page de résultats
   window.location.href = "resultats.html";
 }
 
-window.onload = showQuestion;
+// ✅ Corrigé : pas de double onload
+window.onload = function () {
+  showQuestion();
+};
+
