@@ -195,7 +195,8 @@ function enregistrerEtRediriger() {
   window.location.href = "resultats.html";
 }
 
-// ✅ Corrigé : pas de double onload
-window.onload = showQuestion();
+window.onload = function() {
+  showQuestion();
+};
 
 
